@@ -507,6 +507,8 @@ class OwnedChannel(UAChannel):
         self.message_types = self.config.get('message_types', ['promotional', 'transactional', 'engagement'])
         self.reach_limit = self.config.get('reach_limit', None)
         self.iap_boost_factor = self.config.get('iap_boost_factor', 1.2)
+        self.retention_boost = self.config.get('retention_boost', 0.1)
+        self.reactivation_rate = self.config.get('reactivation_rate', 0.02)
 
     def execute_campaign(self, agents: List[Any]) -> Dict[str, Any]:
         """Execute owned channel campaign"""

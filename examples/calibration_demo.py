@@ -61,7 +61,7 @@ def run_calibration_demo():
         print(f"  {param}: {value:.4f}")
     
     # Get metrics from best calibration run
-    best_run = min(calibrator['calibration_results'], key=lambda x: x['score'])
+    best_run = min(calibrator.calibration_results, key=lambda x: x['score'])
     print(f"\n📈 Achieved Metrics:")
     achieved_metrics = best_run['metrics']
     for metric, value in achieved_metrics.items():
