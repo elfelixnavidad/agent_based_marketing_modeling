@@ -57,25 +57,37 @@ This project creates a "digital twin" of a mobile game's user acquisition ecosys
 
 ## 🎯 Key Features
 
-### 1. Multi-Channel UA Modeling
+### 1. Extensible Multi-Channel UA Modeling
 - **Paid Social**: Facebook, Instagram campaigns
 - **Video Ads**: TikTok, YouTube advertising
 - **Search Ads**: Google Ads, App Store Optimization
 - **Owned Channels**: Push notifications, email marketing
+- **Influencer Marketing**: Paid influencer partnerships with authenticity bonuses
+- **Out-of-Home (OOH)**: Billboards, transit advertising with geographic targeting
+- **Programmatic Display**: Banner and native ads with advanced targeting options
+- **Organic Social**: Viral content marketing with organic growth mechanics
 
-### 2. Advanced Analytics
+### 2. Advanced Channel Architecture
+- **Factory Pattern**: Dynamic channel creation and registration
+- **Channel Types**: PAID_ACQUISITION, OWNED_MEDIA, EARNED_MEDIA, HYBRID
+- **Priority System**: Configurable channel execution priorities
+- **Budget Optimization**: Performance-based allocation with constraints
+- **Custom Metrics**: Extensible per-channel metric tracking
+- **Channel Cloning**: Easy configuration inheritance and testing
+
+### 3. Advanced Analytics
 - **Real-time KPIs**: MAU, ARPU, LTV, CAC, ROAS
 - **Cohort Analysis**: Retention curves by acquisition cohort
 - **Funnel Analysis**: Conversion rates across user journey
 - **Channel Performance**: ROI and efficiency metrics
 
-### 3. What-If Scenarios
+### 4. What-If Scenarios
 - Budget allocation optimization
 - Channel performance changes
 - Market condition adjustments
 - Retention strategy testing
 
-### 4. Model Validation
+### 5. Model Validation
 - **Calibration**: Parameter tuning against historical data
 - **Hindcasting**: Backtesting against known periods
 - **Accuracy Metrics**: MAPE, RMSE validation
@@ -125,16 +137,68 @@ config = {
             'ctr': 0.03,
             'conversion_rate': 0.08
         },
-        'video_ads': {
-            'initial_budget': 30000,
-            'cpi': 3.0,
-            'ctr': 0.025,
-            'conversion_rate': 0.06
+        'influencer': {
+            'initial_budget': 25000,
+            'cpi': 5.0,
+            'ctr': 0.04,
+            'conversion_rate': 0.15,
+            'enabled': True,
+            'priority': 4
+        },
+        'ooh': {
+            'initial_budget': 15000,
+            'cpi': 8.0,
+            'ctr': 0.01,
+            'conversion_rate': 0.05,
+            'enabled': True,
+            'geographic_targeting': {'cities': ['NYC', 'LA', 'SF']}
         }
     }
 }
 
 sim = MarketingSimulation(config=config)
+```
+
+### Dynamic Channel Creation
+```python
+from src.ua_channels.ua_channel import create_channel, register_channel
+
+# Create a custom channel
+custom_channel = create_channel('influencer', model, {
+    'initial_budget': 30000,
+    'authenticity_bonus': 1.5,
+    'influencer_tiers': ['micro', 'macro', 'celebrity']
+})
+
+# Register custom channel types
+register_channel('custom_partner', CustomPartnerChannel)
+
+# Get available channels
+available_channels = get_available_channels()
+print(f"Available channels: {available_channels}")
+```
+
+### Channel Management
+```python
+# Add new channels dynamically
+sim.ua_manager.add_channel('new_influencer', {
+    'initial_budget': 20000,
+    'cpi': 6.0,
+    'priority': 5
+})
+
+# Clone channels for testing
+cloned_channel = sim.ua_manager.channels['paid_social'].clone(
+    'test_social',
+    {'initial_budget': 5000}
+)
+
+# Get channel insights
+insights = sim.ua_manager.get_channel_insights()
+print(f"Top performing channel: {insights['top_performer']}")
+
+# Optimize budget allocation
+optimized = sim.ua_manager.optimize_budget_allocation('roas')
 ```
 
 ## 🎮 Interactive Dashboard
@@ -195,9 +259,9 @@ agent_based_marketing_modeling/
 │   ├── environment/            # Simulation environment
 │   │   ├── marketing_simulation.py
 │   │   └── __init__.py
-│   ├── ua_channels/           # UA channel models
-│   │   ├── ua_channel.py      # Base channel class
-│   │   ├── ua_manager.py      # Channel coordination
+│   ├── ua_channels/           # UA channel models (Extensible)
+│   │   ├── ua_channel.py      # Base class + 8 channel types
+│   │   ├── ua_manager.py      # Advanced channel management
 │   │   └── __init__.py
 │   ├── data_collection/       # Analytics and metrics
 │   │   ├── metrics_collector.py
@@ -208,19 +272,65 @@ agent_based_marketing_modeling/
 │   └── calibration/          # Model validation
 │       ├── calibration.py
 │       └── __init__.py
-├── tests/                    # Test suite
 ├── examples/                 # Example scripts
-├── config/                   # Configuration files
-├── requirements.txt          # Dependencies
+│   ├── budget_optimization.py
+│   ├── cohort_analysis.py
+│   └── calibration_demo.py
+├── test_comprehensive.py     # Comprehensive test suite
 ├── run_demo.py              # Quick demo script
+├── requirements.txt          # Dependencies
+├── claude.md                # Claude-specific documentation
+├── PROJECT_OUTLINE.md       # Project architecture
+├── QUICKSTART.md           # Quick start guide
 └── README.md               # This file
 ```
 
 ## 🧪 Testing
 
-Run the test suite:
+Run the comprehensive test suite:
 ```bash
-python -m pytest tests/
+python test_comprehensive.py
+```
+
+**Test Coverage**: 90 tests covering all major functionality including:
+- Agent behavior and state transitions
+- Channel execution and performance tracking
+- Manager operations and optimization
+- Data collection and metrics
+- Model calibration and validation
+- Integration scenarios
+
+## 🔧 Extensible Channel System
+
+The UA channel system is designed for maximum extensibility:
+
+### Channel Types Available:
+- **PaidSocialChannel**: Facebook, Instagram, Twitter campaigns
+- **VideoAdsChannel**: TikTok, YouTube, Instagram Reels
+- **SearchAdsChannel**: Google Ads, App Store Optimization
+- **OwnedChannel**: Push notifications, email, in-game events
+- **InfluencerChannel**: Paid influencer partnerships with authenticity bonuses
+- **OOHChannel**: Billboards, transit advertising with geographic targeting
+- **ProgrammaticDisplayChannel**: Banner and native ads with advanced targeting
+- **SocialOrganicChannel**: Viral content marketing with organic growth
+
+### Creating Custom Channels:
+```python
+from src.ua_channels.ua_channel import UAChannel, ChannelType
+
+class CustomChannel(UAChannel):
+    def __init__(self, model, config=None):
+        super().__init__('custom_channel', ChannelType.PAID_ACQUISITION, model, config)
+
+    def _initialize_channel_specific_attributes(self):
+        self.custom_metric = self.config.get('custom_metric', 1.0)
+
+    def execute_campaign(self, agents):
+        # Custom campaign logic
+        return {'impressions': 100, 'clicks': 10, 'installs': 2, 'cost': 50}
+
+# Register the custom channel
+register_channel('custom', CustomChannel)
 ```
 
 ## 🎯 Example Scenarios

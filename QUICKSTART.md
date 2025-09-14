@@ -28,7 +28,13 @@ python -m streamlit run src/visualization/dashboard.py
 python launch_dashboard.py
 ```
 
-### Option 3: Example Analyses
+### Option 3: Comprehensive Testing
+```bash
+# Run full test suite (90 tests, 100% coverage)
+python test_comprehensive.py
+```
+
+### Option 4: Example Analyses
 ```bash
 # Budget optimization analysis
 python examples/budget_optimization.py
@@ -55,10 +61,11 @@ python examples/calibration_demo.py
 - **Cohort Analysis**: Retention curves by acquisition cohort
 
 ### 📢 **Channel Performance**
-- Paid Social, Video Ads, Search Ads metrics
-- CPI, CTR, conversion rate analysis
-- Budget efficiency and ROI tracking
-- Performance comparison visualization
+- **8 Channel Types**: Paid Social, Video Ads, Search, Influencer, OOH, Programmatic, Organic, Owned
+- **Advanced Metrics**: CPI, CTR, conversion rate, authenticity bonuses, organic lift
+- **Budget Efficiency**: ROI tracking and performance optimization
+- **Channel Comparison**: Side-by-side performance visualization
+- **Custom Metrics**: Extensible per-channel performance tracking
 
 ### 🔮 **What-If Scenarios**
 - Budget allocation optimization
@@ -73,9 +80,21 @@ python examples/calibration_demo.py
 
 ### **UA Channels**
 - **Paid Social**: Facebook, Instagram campaigns
-- **Video Ads**: TikTok, YouTube advertising  
+- **Video Ads**: TikTok, YouTube advertising
 - **Search Ads**: Google Ads, App Store Optimization
 - **Owned Channels**: Push notifications, email marketing
+- **Influencer Marketing**: Paid partnerships with authenticity bonuses
+- **Out-of-Home (OOH)**: Billboards and transit advertising
+- **Programmatic Display**: Banner and native ads with advanced targeting
+- **Organic Social**: Viral content marketing with organic growth
+
+### **New Extensible Features**
+- **Dynamic Channel Creation**: Add custom channels at runtime
+- **Channel Factory Pattern**: Easy channel instantiation and registration
+- **Performance Optimization**: Automated budget allocation based on ROI
+- **Channel Cloning**: Configuration inheritance for A/B testing
+- **Priority System**: Configurable channel execution order
+- **Custom Metrics**: Extensible per-channel performance tracking
 
 ### **Key Metrics**
 - **LTV**: Lifetime Value per user
@@ -107,11 +126,13 @@ streamlit run src/visualization/dashboard.py --server.port=8501
 
 ## Next Steps
 
-1. **Run the demo** to see basic functionality
-2. **Launch the dashboard** for interactive exploration
-3. **Try the examples** for advanced analysis
-4. **Customize the model** for your specific use case
-5. **Calibrate the model** using your historical data
+1. **Run the demo** (`python run_demo.py`) to see basic functionality
+2. **Launch the dashboard** for interactive exploration and what-if analysis
+3. **Run comprehensive tests** (`python test_comprehensive.py`) to verify all features
+4. **Try the examples** for advanced analysis and calibration
+5. **Create custom channels** using the extensible factory pattern
+6. **Optimize budget allocation** using performance-based algorithms
+7. **Calibrate the model** using your historical data for accurate predictions
 
 ## Support
 
