@@ -57,12 +57,35 @@ The fundamental unit of the simulation, defined by its states and attributes.
 - `PAYING_USER`: A subset of `INSTALLED` agents who have made an in-app purchase.
 - `LAPSED`: A former player who has churned.
 
-#### 3.1.2 Attributes (The Persona)
+#### 3.1.2 Base Attributes (The Persona)
 - `channel_preference`: Susceptibility to various UA channels.
 - `install_threshold`: Score needed to move to the `INSTALLED` state.
 - `IAP_probability`: Likelihood of converting to a `PAYING_USER`.
 - `k_factor`: The agent's virality (word-of-mouth influence).
 - `churn_propensity`: Baseline probability of becoming `LAPSED`.
+
+#### 3.1.3 Advanced User Segmentation System (NEW)
+The enhanced persona system includes comprehensive user segmentation and behavioral targeting:
+
+**UserPersona Dataclass:**
+- **Demographics**: age_group, gender, location, device_type, income_bracket, education_level
+- **Behavioral Attributes**: risk_tolerance, novelty_seeking, social_engagement, competition_drive
+- **Gaming Preferences**: preferred_game_genres, gaming_frequency, session_length_preference
+- **Marketing Preferences**: ad_tolerance, email_preference, social_sharing_likelihood
+
+**12 User Segments:**
+- Casual, Core, Whale, Newbie, Returning, Churned
+- High Engagement, Low Engagement, Social Butterfly, Solitary Player, Competitive, Casual Social
+
+**9 Behavioral Patterns:**
+- Price Sensitive, Brand Loyal, Trend Follower, Early Adopter, Late Adopter
+- Social Influencer, Achievement Seeker, Explorer, Collector
+
+**Enhanced Features:**
+- **Lookalike Modeling**: Similarity scoring for audience expansion
+- **Behavioral Targeting**: Personalized channel preferences and message strategies
+- **Segment-based LTV**: Enhanced lifetime value predictions by segment
+- **Adaptive Preferences**: Dynamic channel preference adjustment based on behavior
 
 ### 3.2 The Environment (The Marketplace)
 - **Total Addressable Market (TAM):** Total population of potential players for the game's genre.
@@ -102,6 +125,10 @@ Global forces that influence agents based on budget allocation.
 - **Diminishing Returns:** At what weekly spending level does a specific ad channel (e.g., TikTok) become saturated?
 - **Organic Growth:** How much do we need to spend on paid UA to kickstart a self-sustaining viral loop (where k-factor > 1)?
 - **Live-Ops Impact:** What is the projected 6-month ROI of developing a new in-game event that reduces churn by 5%?
+- **User Segmentation:** Which user segments provide the highest LTV and retention rates, and how should we tailor our marketing approach?
+- **Behavioral Targeting:** How can personalized marketing based on behavioral patterns improve campaign efficiency and ROI?
+- **Audience Expansion:** What are the most effective lookalike audiences for scaling user acquisition?
+- **Channel Strategy:** How should channel mix be optimized for different user segments and behavioral patterns?
 
 ---
 ## 6. Project Deliverables & Showcase

@@ -88,7 +88,16 @@ python examples/calibration_demo.py
 - **Programmatic Display**: Banner and native ads with advanced targeting
 - **Organic Social**: Viral content marketing with organic growth
 
-### **New Extensible Features**
+### **Advanced User Segmentation System**
+- **UserPersona Dataclass**: Comprehensive user attributes and behaviors
+- **Behavioral Targeting**: 9 behavioral patterns for personalized marketing
+- **12 User Segments**: Detailed segmentation with behavioral targeting
+- **Lookalike Modeling**: Similarity scoring for audience expansion
+- **Enhanced LTV Predictions**: Segment-based lifetime value calculations
+- **Adaptive Channel Preferences**: Dynamic preference optimization
+- **Targeting Recommendations**: Personalized campaign strategies
+
+### **Extensible Channel System**
 - **Dynamic Channel Creation**: Add custom channels at runtime
 - **Channel Factory Pattern**: Easy channel instantiation and registration
 - **Performance Optimization**: Automated budget allocation based on ROI
@@ -130,9 +139,11 @@ streamlit run src/visualization/dashboard.py --server.port=8501
 2. **Launch the dashboard** for interactive exploration and what-if analysis
 3. **Run comprehensive tests** (`python test_comprehensive.py`) to verify all features
 4. **Try the examples** for advanced analysis and calibration
-5. **Create custom channels** using the extensible factory pattern
-6. **Optimize budget allocation** using performance-based algorithms
-7. **Calibrate the model** using your historical data for accurate predictions
+5. **Explore user segmentation** (`python test_user_segmentation.py`) to test behavioral targeting
+6. **Create custom channels** using the extensible factory pattern
+7. **Build user personas** using the advanced segmentation system
+8. **Optimize budget allocation** using performance-based algorithms
+9. **Calibrate the model** using your historical data for accurate predictions
 
 ## Support
 
