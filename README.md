@@ -47,6 +47,16 @@ This project creates a "digital twin" of a mobile game's user acquisition ecosys
 5. **Visualization** (`src/visualization/`): Interactive dashboard
 6. **Calibration** (`src/calibration/`): Model validation and parameter tuning
 
+### Enhanced Agent Architecture
+
+#### Advanced User Segmentation System
+- **UserPersona**: Detailed user persona dataclass with comprehensive attributes
+- **UserSegmentationEngine**: Behavioral targeting and segmentation logic
+- **EnhancedPlayerPersona**: Integration of segmentation with Mesa agent framework
+- **Behavioral Patterns**: 9 behavioral patterns for personalized targeting
+- **User Segments**: 12 detailed user segments with behavioral targeting
+- **Lookalike Modeling**: Similarity scoring and audience targeting
+
 ### Agent States
 
 - `UNAWARE`: Not aware of the game
@@ -57,7 +67,16 @@ This project creates a "digital twin" of a mobile game's user acquisition ecosys
 
 ## 🎯 Key Features
 
-### 1. Extensible Multi-Channel UA Modeling
+### 1. Advanced User Segmentation & Behavioral Targeting
+- **Detailed User Personas**: Comprehensive demographic, behavioral, and preference attributes
+- **12 User Segments**: Casual, Core, Whale, Newbie, High Engagement, Low Engagement, Social Butterfly, Solitary Player, Competitive, Casual Social, Returning, Churned
+- **9 Behavioral Patterns**: Price Sensitive, Brand Loyal, Trend Follower, Early Adopter, Late Adopter, Social Influencer, Achievement Seeker, Explorer, Collector
+- **Behavioral Targeting**: Personalized channel preferences and message strategies
+- **Lookalike Modeling**: Similarity scoring for audience expansion
+- **Segmentation-based LTV**: Enhanced lifetime value predictions by segment
+- **Adaptive Channel Preferences**: Dynamic preference adjustment based on behavior
+
+### 2. Extensible Multi-Channel UA Modeling
 - **Paid Social**: Facebook, Instagram campaigns
 - **Video Ads**: TikTok, YouTube advertising
 - **Search Ads**: Google Ads, App Store Optimization
@@ -99,12 +118,20 @@ This project creates a "digital twin" of a mobile game's user acquisition ecosys
 - At what spending level does ad saturation occur?
 - How much paid UA is needed to achieve sustainable viral growth?
 - What's the ROI of implementing new retention features?
+- **Which user segments provide the highest LTV and retention rates?**
+- **How can behavioral targeting improve campaign efficiency?**
+- **What channel preferences do different user personas exhibit?**
+- **How does segmentation-based targeting affect overall ROI?**
 
 ### Business Applications
 - **Marketing Planning**: Test budget allocations before committing spend
 - **Campaign Optimization**: Identify underperforming channels and opportunities
 - **Market Analysis**: Simulate impact of competitive changes
 - **Product Decisions**: Evaluate feature ROI based on retention impact
+- **User Segmentation**: Identify high-value user segments and behavioral patterns
+- **Personalized Marketing**: Develop targeted campaigns based on user personas
+- **Audience Expansion**: Use lookalike modeling to find similar high-value users
+- **Channel Strategy**: Optimize channel mix based on segment preferences
 
 ## 🔧 Configuration
 
@@ -157,6 +184,86 @@ config = {
 }
 
 sim = MarketingSimulation(config=config)
+```
+
+### Advanced User Segmentation Configuration
+```python
+from src.agents.user_segmentation import UserSegmentationEngine, UserPersona
+from src.agents.enhanced_player_persona import EnhancedPlayerPersona
+
+# Create segmentation engine
+engine = UserSegmentationEngine()
+
+# Create custom user persona
+persona_config = {
+    "age_group": "25-34",
+    "gender": "female",
+    "location": "us",
+    "spending_capacity": "high",
+    "gaming_frequency": "heavy",
+    "technical_proficiency": "advanced"
+}
+persona = engine.create_persona(persona_config)
+
+# Create enhanced player persona with segmentation
+class MockModel:
+    def __init__(self):
+        self.agents_ = {}
+        self.schedule = Mock()
+        self.schedule.steps = 0
+        self.ua_manager = Mock()
+        self.data_collector = Mock()
+        from src.agents.enhanced_player_persona import EnhancedPlayerPersona
+        self.agents_[EnhancedPlayerPersona] = {}
+
+model = MockModel()
+enhanced_persona = EnhancedPlayerPersona(1, model, persona_config)
+
+# Get segmentation insights
+insights = enhanced_persona.get_segmentation_insights()
+print(f"User Segment: {insights['current_segment']}")
+print(f"Behavioral Patterns: {insights['behavioral_patterns']}")
+print(f"Channel Preferences: {insights['channel_preferences']}")
+
+# Get enhanced LTV predictions
+ltv_data = enhanced_persona.get_enhanced_ltv()
+print(f"Current LTV: ${ltv_data['current_ltv']:.2f}")
+print(f"Predicted LTV: ${ltv_data['predicted_ltv']:.2f}")
+```
+
+### Behavioral Targeting Configuration
+```python
+# Segment user based on behavior
+behavioral_data = {
+    "session_length": 0.7,
+    "frequency": 0.8,
+    "spending": 0.6,
+    "social": 0.4
+}
+
+segment = engine.segment_user(persona, behavioral_data)
+patterns = engine.identify_behavioral_patterns(persona)
+recommendations = engine.get_targeting_recommendations(persona, segment, patterns)
+
+print(f"Recommended Segment: {segment.value}")
+print(f"Behavioral Patterns: {[p.value for p in patterns]}")
+print(f"Channel Strategy: {recommendations['channel_preferences']}")
+print(f"Message Strategy: {recommendations['message_strategy']}")
+```
+
+### Lookalike Modeling
+```python
+# Create lookalike audiences
+source_persona = engine.create_persona({"spending_capacity": "high", "social_engagement": 0.8})
+target_persona = engine.create_persona({"spending_capacity": "medium", "social_engagement": 0.6})
+
+similarity_scores = engine.create_behavioral_lookalike(source_persona, target_persona)
+print(f"Overall Similarity: {similarity_scores['overall_similarity']:.2f}")
+print(f"Gaming Preference Similarity: {similarity_scores['gaming_preference']:.2f}")
+
+# Calculate segment affinity
+whale_affinity = engine.calculate_segment_affinity(target_persona, UserSegment.WHALE)
+print(f"Whale Segment Affinity: {whale_affinity:.2f}")
 ```
 
 ### Dynamic Channel Creation
@@ -254,7 +361,9 @@ validation = calibrator.validate_model(historical_data)
 agent_based_marketing_modeling/
 ├── src/
 │   ├── agents/                 # Agent implementations
-│   │   ├── player_persona.py   # Individual user behavior
+│   │   ├── player_persona.py           # Individual user behavior
+│   │   ├── user_segmentation.py        # Advanced user segmentation system
+│   │   ├── enhanced_player_persona.py  # Enhanced agent with segmentation
 │   │   └── __init__.py
 │   ├── environment/            # Simulation environment
 │   │   ├── marketing_simulation.py
@@ -277,6 +386,7 @@ agent_based_marketing_modeling/
 │   ├── cohort_analysis.py
 │   └── calibration_demo.py
 ├── test_comprehensive.py     # Comprehensive test suite
+├── test_user_segmentation.py # User segmentation tests (38 tests)
 ├── run_demo.py              # Quick demo script
 ├── requirements.txt          # Dependencies
 ├── claude.md                # Claude-specific documentation
@@ -289,16 +399,32 @@ agent_based_marketing_modeling/
 
 Run the comprehensive test suite:
 ```bash
+# Core functionality tests (90 tests)
 python test_comprehensive.py
+
+# Advanced user segmentation tests (38 tests)
+python test_user_segmentation.py
+
+# Run all tests
+python -m pytest test_*.py -v
 ```
 
-**Test Coverage**: 90 tests covering all major functionality including:
+**Test Coverage**: 128 tests covering all major functionality including:
 - Agent behavior and state transitions
 - Channel execution and performance tracking
 - Manager operations and optimization
 - Data collection and metrics
 - Model calibration and validation
 - Integration scenarios
+- **Advanced User Segmentation**:
+  - UserPersona dataclass functionality
+  - UserSegmentationEngine behavioral targeting
+  - EnhancedPlayerPersona integration with Mesa framework
+  - Behavioral pattern identification and scoring
+  - Lookalike modeling and similarity calculations
+  - Segmentation-based LTV predictions
+  - Channel preference adaptation
+  - Targeting recommendations generation
 
 ## 🔧 Extensible Channel System
 
@@ -387,8 +513,13 @@ for mult in multipliers:
 - **Machine Learning Integration**: predictive models for user behavior
 - **Competitive Simulation**: Multiple games competing for users
 - **Geographic Modeling**: Regional preferences and market differences
-- **Advanced Segmentation**: Detailed user persona modeling
+- **✅ Advanced Segmentation**: Detailed user persona modeling **(IMPLEMENTED)**
 - **Real-time Data Integration**: Live campaign data feeding
+- **Cross-Platform Tracking**: Unified user behavior across devices
+- **Advanced A/B Testing**: Automated campaign optimization
+- **Predictive Churn Modeling**: Early intervention systems
+- **Real-Time Personalization**: Dynamic content adaptation
+- **Market Basket Analysis**: Cross-sell and upsell optimization
 
 ## 🤝 Contributing
 

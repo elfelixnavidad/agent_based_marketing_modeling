@@ -10,6 +10,17 @@ This is an advanced agent-based modeling framework designed specifically for sim
   - **Agent States**: UNAWARE → AWARE → INSTALLED → PAYING_USER → LAPSED
   - **Persona Attributes**: Channel preferences, install thresholds, IAP probability, k-factor, churn propensity
   - **Behaviors**: Decision-making, purchasing, churn, organic influence (viral growth)
+- **`user_segmentation.py`**: Advanced user segmentation and behavioral targeting system
+  - **UserPersona**: Comprehensive dataclass with demographic, behavioral, and preference attributes
+  - **UserSegmentationEngine**: Segmentation logic, behavioral pattern identification, targeting recommendations
+  - **12 User Segments**: Casual, Core, Whale, Newbie, High/Low Engagement, Social Butterfly, Solitary Player, etc.
+  - **9 Behavioral Patterns**: Price Sensitive, Brand Loyal, Trend Follower, Social Influencer, Achievement Seeker, etc.
+  - **Lookalike Modeling**: Similarity scoring and audience targeting capabilities
+- **`enhanced_player_persona.py`**: Enhanced agent integrating segmentation with Mesa framework
+  - **Segmentation Integration**: Seamless integration with existing PlayerPersona
+  - **Behavioral Targeting**: Personalized channel preferences and campaign strategies
+  - **Enhanced LTV**: Segment-based lifetime value predictions and churn modeling
+  - **Adaptive Preferences**: Dynamic channel preference adjustment based on behavior
 
 ### 2. **Environment Layer** (`src/environment/`)
 - **`marketing_simulation.py`**: Core simulation orchestration using Mesa framework
@@ -90,7 +101,18 @@ This is an advanced agent-based modeling framework designed specifically for sim
 
 ## 🎯 Key Features & Capabilities
 
-### 1. **Extensible Multi-Channel UA Modeling**
+### 1. **Advanced User Segmentation and Behavioral Targeting**
+- **Comprehensive User Personas**: Detailed demographic, behavioral, and preference attributes
+- **12 User Segments**: From Casual to Whale, with behavioral and engagement-based segments
+- **9 Behavioral Patterns**: Price Sensitive, Brand Loyal, Social Influencer, Achievement Seeker, etc.
+- **Personalized Targeting**: Channel preferences, message strategies, and offer recommendations
+- **Lookalike Modeling**: Similarity scoring for audience expansion and targeting
+- **Enhanced LTV Predictions**: Segment-based lifetime value calculations
+- **Adaptive Preferences**: Dynamic channel preference optimization based on behavior
+- **Behavioral Scoring**: Quantified behavioral patterns for precise targeting
+- **Integration with Mesa**: Seamless agent framework integration for simulation
+
+### 2. **Extensible Multi-Channel UA Modeling**
 - **8 Built-in Channel Types**: Comprehensive coverage of major UA channels
 - **Dynamic Channel Creation**: Factory pattern for runtime channel instantiation
 - **Custom Channel Registration**: Easy addition of new channel types
@@ -132,12 +154,15 @@ agent_based_marketing_modeling/
 │   ├── requirements.txt             # Python dependencies
 │   ├── launch_dashboard.py          # Dashboard launcher
 │   ├── run_demo.py                  # Demo script
-│   └── test_comprehensive.py       # Test suite
+│   ├── test_comprehensive.py       # Core test suite (90 tests)
+│   └── test_user_segmentation.py   # Segmentation tests (38 tests)
 │
 ├── 📁 src/                          # Source code
 │   ├── 📁 agents/                   # Agent implementations
 │   │   ├── __init__.py
-│   │   └── player_persona.py        # Individual user behavior
+│   │   ├── player_persona.py        # Individual user behavior
+│   │   ├── user_segmentation.py    # Advanced user segmentation system
+│   │   └── enhanced_player_persona.py # Enhanced agent with segmentation
 │   │
 │   ├── 📁 environment/              # Simulation environment
 │   │   ├── __init__.py
@@ -180,6 +205,10 @@ agent_based_marketing_modeling/
 - **Growth Modeling**: How much paid UA is needed for sustainable viral growth?
 - **Retention Impact**: What's the ROI of retention features?
 - **Market Conditions**: How do external factors affect campaign performance?
+- **User Segmentation**: Which user segments provide the highest LTV and retention?
+- **Behavioral Targeting**: How can personalized marketing improve campaign efficiency?
+- **Audience Expansion**: What are the best lookalike audiences for growth?
+- **Channel Strategy**: Which channels work best for different user segments?
 
 ### Use Cases:
 1. **Marketing Planning**: Test budget allocations before committing spend
@@ -200,21 +229,30 @@ agent_based_marketing_modeling/
 - **Cohort analysis capabilities** with retention curves
 - **What-if scenario testing** and sensitivity analysis
 - **Model calibration and validation** with historical data
-- **Comprehensive test suite** (90 tests, 100% coverage)
+- **Comprehensive test suite** (128 tests, 100% coverage)
 - **Channel cloning and configuration inheritance**
 - **Priority-based channel execution system**
 - **Custom metrics and performance insights**
 - **Target state filtering for precise audience targeting**
+- **✅ Advanced user segmentation and behavioral targeting** (NEW FEATURE)
+  - Comprehensive UserPersona dataclass with detailed attributes
+  - 12 user segments with behavioral targeting (Casual, Core, Whale, etc.)
+  - 9 behavioral patterns for personalized marketing
+  - Lookalike modeling and similarity scoring
+  - Enhanced LTV predictions with segmentation
+  - Adaptive channel preferences and targeting recommendations
+  - EnhancedPlayerPersona integration with Mesa framework
+  - 38 comprehensive unit tests for segmentation system
 
 ### 🔄 Areas for Enhancement:
 - Machine learning integration for predictive modeling
 - Competitive simulation (multiple games competing for users)
 - Advanced geographic modeling and regional preferences
 - Real-time data integration with live campaign APIs
-- Advanced user segmentation and behavioral targeting
 - Integration with external marketing platforms
 - Mobile-friendly dashboard interface
 - Automated reporting and alerting system
+- Cross-platform tracking and unified user profiles
 
 ## 🚀 Quick Start
 
